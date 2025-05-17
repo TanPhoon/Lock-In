@@ -4,6 +4,24 @@ const addTask = document.getElementById('addTask');
 const todoSpace = document.getElementById('todoSpace');
 const prioritySelect = document.getElementById('prioritySelect');
 
+// ————————————————————————————
+// GLOBAL CLICK SOUND FOR ALL BUTTONS
+// ————————————————————————————
+const clickSound = new Audio('assets/click.mp3');
+clickSound.preload = 'auto';
+clickSound.volume = 0.2; // tweak between 0.0–1.0
+
+document.addEventListener('click', e => {
+  // if the clicked element is a button (or inside one)
+  const btn = e.target.closest('button');
+  if (btn) {
+    // rewind and play
+    clickSound.currentTime = 0;
+    clickSound.play();
+  }
+});
+// ————————————————————————————
+
 function createTask() {
   let text = input.value.trim();
   if (!text) return;
@@ -68,3 +86,20 @@ addTask.addEventListener('click', createTask);
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter') createTask();
 });
+
+// Theme switcher
+const themeSelect = document.getElementById('theme-select');
+
+themeSelect.addEventListener('change', (e) => {
+  // remove all theme- classes
+  document.body.classList.remove(
+    'theme-tech-bro',
+    'theme-zero-dopamine',
+    'theme-tech-neon'
+  );
+  // add the selected one
+  document.body.classList.add(e.target.value);
+});
+
+// initialize to default
+document.body.classList.add(themeSelect.value);
