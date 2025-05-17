@@ -1,0 +1,376 @@
+/* ===================================================================
+   Global Reset, Grid & Scrollbar
+   =================================================================== */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+  }
+  ::selection {
+    background: transparent;
+  }
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #333;
+  }
+  ::-webkit-scrollbar {
+    width: 6px; height: 6px;
+  }
+  ::-webkit-scrollbar-track { background: #333; }
+  ::-webkit-scrollbar-thumb { background: #555; }
+  
+  /* ===================================================================
+     Body: 12-col Grid + Collage Background of All 10 Scenes
+     =================================================================== */
+  /* 1) Make sure body is full‐height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+  body.theme-tech-bro {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: min-content;
+    gap: 1rem;
+    padding: 3rem 2rem 2rem;           /* Top padding for fixed header */
+    font-family: "IBM Plex Mono", Consolas, monospace;
+    color: #000000;
+    background: #f5f5f5;
+    
+  
+    /* collage of 10 environment shots */
+    background-image:
+      url("assets/House\ where\ Facebook\ was\ built\ is\ up\ for\ rent….jpeg"),
+      url("assets/3deb24e2-378d-481e-8184-4508a12eb69c.jpeg"),
+      url("assets/2bc0c31b-f0af-45d1-9139-17e2efa5c42e.jpeg"),
+      url("assets/The\ Big\ Short\ -\ 8_10.jpeg"),
+      url("assets/download.jpeg"),
+      url("assets/ad098c98-4589-41d9-ae08-f98157ac7957.jpeg"),
+      url("assets/cbfa1d2c-9c56-46ec-977e-73c07fce1f29.jpeg"),
+      url("assets/_BILL\ GATES\ 1984_\ Founder\ of\ Microsoft\,\ in\ his….jpeg"),
+      url("assets/646ae6be-3813-42ca-9a31-f18c4df3055f.jpeg"),
+      url("assets/The\ Facebook\ Movie\ Told\ Us\ What\ We\ Needed\ to\ Know\ About\ Mark\ Zuckerberg\ \(Published\ 2018\).jpeg");
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+
+background-position:
+left   top,    center top,     right  top,
+left   center, center center,  right  center,
+left   bottom, center bottom,  right  bottom,
+center center; /* tenth image overlaps center */
+
+/* TEN identical sizes, each filling one 33.33% × 33.33% “cell” */
+background-size:
+33.33% 33.33%, 33.33% 33.33%, 33.33% 33.33%,
+33.33% 33.33%, 33.33% 33.33%, 33.33% 33.33%,
+33.33% 33.33%, 33.33% 33.33%, 33.33% 33.33%,
+33.33% 33.33%;
+
+/* remove any blending so colors stay bright */
+background-blend-mode: normal;
+}
+
+  
+  
+  /* ===================================================================
+     Module “Monitor-Bezel” Style (To-Do + Pomodoro)
+     =================================================================== */
+  .todo-container,
+  #pomodoro-container {
+    position: relative;
+    top: 70px;
+    left: 0;
+    right: 0;
+    float: none;
+    padding: 1rem;
+    border: 1px solid #333;
+    background: rgba(240,239,236,0.8);  /* let collage peek through */
+    background-image: radial-gradient(
+      circle at top center,
+      rgba(0,0,0,0.20) 0%,
+      transparent 60%
+    );
+  }
+  
+
+  
+  .todo-container { grid-column: 1 / span 8; }
+  #pomodoro-container { grid-column: 9 / span 4; }
+  
+  /* ===================================================================
+     To-Do Inputs & Task Items
+     =================================================================== */
+  .input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  input[type="text"],
+  input[type="number"],
+  select {
+    background: none;
+    border: 1px solid #333;
+    padding: 0.25rem 0.5rem;
+    font-family: inherit;
+    color: inherit;
+  }
+  button {
+    background: none;
+    border: 1px solid #333;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button:hover,
+  select:hover,
+  input:hover {
+    border-width: 2px;
+  }
+  
+  #todoSpace {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+/* 2) Assign numeric order based on priority */
+/* High (1) comes before Medium (2) before Low (3) */
+#todoSpace .task.high,
+#todoSpace p.high {
+  order: 1;
+}
+#todoSpace .task.medium,
+#todoSpace p.medium {
+  order: 2;
+}
+#todoSpace .task.low,
+#todoSpace p.low {
+  order: 3;
+}
+
+  .task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,251,230,0.8); /* sticky-note glow */
+    padding: 0.5rem;
+    border: 1px solid #333;
+    font-size: 0.95rem;
+  }
+  .task.high   { border-left: 4px solid #92d050; }
+  .task.medium { border-left: 4px solid #888; }
+  .task.low    { border-left: 4px dotted #888; color: #666; }
+  
+  /* ===================================================================
+     Pomodoro Timer Styling
+     =================================================================== */
+  #pomodoro-container h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+  }
+  #session-selection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  #custom-duration {
+    display: none;
+  }
+  #timer-display {
+    font-size: 2em;
+    margin: 1em 0;
+  }
+  #pause-btn,
+  #end-btn {
+    margin-right: 0.5rem;
+  }
+  #message {
+    background: rgba(255,251,230,0.8);
+    padding: 0.5rem;
+    border: 1px solid #333;
+    margin-bottom: 1rem;
+  }
+  #session-history {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #session-history th,
+  #session-history td {
+    text-align: left;
+    padding: 0.25rem 0.5rem;
+    border-bottom: 1px solid #333;
+    font-size: 0.9rem;
+  }
+  
+  /* ===================================================================
+     Links, Labels & Utility
+     =================================================================== */
+  h1, h2, h3, label, a {
+    font-family: inherit;
+    color: inherit;
+  }
+  a {
+    text-decoration: none;
+    border: 1px solid #333;
+    padding: 0.2rem 0.4rem;
+  }
+  a:hover {
+    border-width: 2px;
+  }
+  
+/* at the very end of style.css */
+#todoSpace p {
+  position: relative;
+  padding-left: 1.5em;
+}
+#todoSpace p::before {
+  position: absolute;
+  left: 0.3em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+  color: #000;
+  white-space: pre;
+}
+/* override for each priority */
+#todoSpace p.high::before   { content: "\2022 \2022 \2022"; }
+#todoSpace p.medium::before { content: "\2022 \2022"; }
+#todoSpace p.low::before    { content: "\2022"; }
+
+/* Strike‐through completed tasks */
+#todoSpace p input.task-checkbox:checked + span {
+  text-decoration: line-through;
+  color: #666;           /* optional: fade the text a bit */
+}
+
+/* If you’re using a .task wrapper instead of raw <p> */
+#todoSpace .task input.task-checkbox:checked + span {
+  text-decoration: line-through;
+  color: #666;
+}
+
+/* ==========================================
+   Theme Variables
+   ========================================== */
+   :root {
+    --bg-color:        #f5f5f5;
+    --text-color:      #333;
+    --module-bg:       rgba(240,239,236,0.9);
+    --accent-green:    #92d050;
+    --accent-sticky:   rgba(255,251,230,0.8);
+    --amber:           #eac784;
+    --border-color:    #333;
+    --grad-shadow:     rgba(0,0,0,0.20);
+  }
+  
+  /* “Pov U r a tech bro” – your default */
+ 
+  body.theme-zero-dopamine {
+    /* full-screen flat blue */
+    background: #e3f2fd;  /* very light blue */
+  
+    /* Module cards */
+    --module-bg:        #ffffff;  /* pure white cards */
+    --border-color:     #90caf9;  /* pale blue border */
+    --header-bg:        #2196f3;  /* strong blue header */
+    --header-text:      #ffffff;
+    --btn-bg:           #ffffff;
+    --btn-text:         #2196f3;
+    --btn-border:       #2196f3;
+    --text-color:       #0d47a1;
+    --subtle:           #bbdefb;
+    --sticky-bg:        rgba(187,210,251,0.3);
+  }
+  
+  /*──────────────────────────────────────────────────
+    4) Tech Neon → Black Mode: same cards, black/red swap
+  ──────────────────────────────────────────────────*/
+  body.theme-tech-neon {
+    /* deep black page */
+    background: #121212;
+  
+    /* Module cards */
+    --module-bg:        #1e1e1e;
+    --border-color:     #444444;
+    --header-bg:        #000000;  /* black header */
+    --header-text:      #ffffff;
+    --btn-bg:           #000000;
+    --btn-text:         #ffffff;
+    --btn-border:       #ffffff;
+    --text-color:       #e0e0e0;
+    --subtle:           #333333;
+    --sticky-bg:        rgba(255,255,255,0.1);
+  }
+  
+  /*──────────────────────────────────────────────────
+    5) Apply module & button styles via variables
+  ──────────────────────────────────────────────────*/
+  .todo-container,
+  #pomodoro-container {
+    background: var(--module-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Header bar */
+  #lockin {
+    background: var(--header-bg) !important;
+    color: var(--header-text);
+    border-color: var(--border-color);
+  }
+  
+  /* Buttons & selects */
+  button,
+  #start-btn,
+  input[type="checkbox"] + label,
+  select,
+  input[type="text"],
+  input[type="number"] {
+    font-family: inherit;
+    border: 1px solid var(--btn-border) !important;
+    background: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+  }
+  button:hover,
+  select:hover,
+  input[type="text"]:hover {
+    background: var(--subtle) !important;
+  }
+  
+  /* Text, inputs, messages */
+  body {
+    color: var(--text-color);
+  }
+  #message {
+    background: var(--sticky-bg) !important;
+    border-color: var(--border-color) !important;
+  }
+  
+  /* Ensure Tech Bro still overrides these empty for others */
+ 
+  /* Sticky-note messages */
+  #message {
+    background: var(--accent-sticky);
+    border-color: var(--border-color);
+  }
+  
+  /* ==========================================
+     Lock-In Mode (body.lockin-active)
+     ========================================== */
+  /* Hide the To-Do entirely */
+  body.lockin-active .todo-container {
+    display: none;
+  }
+  
+  /* Center the Pomodoro panel */
+  body.lockin-active #pomodoro-container {
+    grid-column: 1 / -1 !important;
+    justify-self: center;
+    max-width: 400px; /* match your default width */
+  }

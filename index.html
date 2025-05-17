@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="todo-container">
+    <h1>To-Do</h1>
+    <div class="input-group">
+      <input id="input" type="text" placeholder="Add a new task...">
+      <select id="prioritySelect">
+        <option value="medium">Medium Priority</option>
+        <option value="high">High Priority</option>
+        <option value="low">Low Priority</option>
+      </select>
+      <div>
+        <button id="addTask">Add</button><br><br>
+        <button id="clear">Clear</button>
+      </div>
+      <label for="theme-select" style="margin-left:1em; font-size:0.9em; color: inherit;">
+        Theme:
+        <select id="theme-select" style="font-family:inherit; border:1px solid var(--border-color); background:none; color:inherit; padding:0.2em 0.4em;">
+          <option value="theme-tech-bro">Tech Bro</option>
+          <option value="theme-zero-dopamine">Zero Dopamine</option>
+          <option value="theme-tech-neon">Tech Neon</option>
+        </select>
+      </label>
+    </div>
+    <div id="todoSpace"></div>
+  </div>
+  <script src="script.js"></script>
+
+
+  <!-- Pomodoro Deep-Work Module -->
+<div id="pomodoro-container" style="margin-top:2em; padding:1em; border:1px solid #ccc; border-radius:8px; max-width:400px;">
+  <h2>Deep-Work Timer
+    <button id="lockin-toggle" style="font-size:0.8em; margin-left:1em;">
+      🔒 Lock-In
+    </button>
+  </h2>
+
+  <div id="session-selection">
+    <label>
+      Session length:
+      <select id="session-duration">
+        <option value="20">20 min</option>
+        <option value="30">30 min</option>
+        <option value="40">40 min</option>
+        <option value="50">50 min</option>
+        <option value="60">60 min</option>
+        <option value="custom">Custom</option>
+      </select>
+    </label>
+    <input type="number" id="custom-duration" placeholder="Minutes" min="1" style="width:4em; display:none; margin-left:0.5em;" />
+    <button id="start-btn">Start</button>
+    <label style="margin-left:1em; font-size:0.9em;">
+      <input type="checkbox" id="auto-start" /> Auto-Start Next
+    </label>
+  </div>
+
+  <div id="timer-display" style="font-size:2em; margin:1em 0;">00:00</div>
+  <button id="pause-btn" disabled>Pause</button>
+  <button id="end-btn" disabled>End</button>
+
+  <div id="message" style="margin:1em 0; color:#555;"></div>
+
+  <h3>Session History</h3>
+  <table id="session-history" style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th style="border-bottom:1px solid #ccc; text-align:left;">#</th>
+        <th style="border-bottom:1px solid #ccc; text-align:left;">Duration (min)</th>
+        <th style="border-bottom:1px solid #ccc; text-align:left;">Task Completed</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script src="pomodoro.js"></script>
+
+</body>
+</html>
